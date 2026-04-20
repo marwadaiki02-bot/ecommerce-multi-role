@@ -11,16 +11,13 @@ export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ unique: true })
   username!: string;
 
   @Column()
   password!: string;
 
-  @Column({
-    type: 'enum',
-    enum: UserRole,
-    default: UserRole.CLIENT,
-  })
+  // ⚠️ Correction : SQLite ne supporte pas enum → utiliser text
+  @Column({ type: 'text', default: UserRole.CLIENT })
   role!: UserRole;
 }
